@@ -1,13 +1,18 @@
 from django import forms
 from .models import Habit
 
-class BookForm(forms.ModelForm):
-    class Meta:
-        model = Habit
-        fields = [
-            "verb",
-            "noun",
-            "noun_singular",
-            "number",
-            "is_negative"
-        ]
+class HabitForm(forms.Form):
+
+    CHOICES = [ ("more", "at least"), ("less", "less than") ]
+
+    verb = forms.CharField(max_length=20,  widget= forms.TextInput
+                           (attrs={'placeholder':'verb'}))
+    noun = forms.CharField(max_length=20, widget= forms.TextInput
+                           (attrs={'placeholder':'plural noun'}))
+    noun_singular = forms.CharField(max_length=20, widget= forms.TextInput
+                           (attrs={'placeholder':'noun'}))
+    number = forms.FloatField(widget= forms.TextInput
+                           (attrs={'placeholder':'number'}))
+    more_less = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect)
+
+
