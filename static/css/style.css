@@ -57,3 +57,11 @@ header {
 .habit-pane {
     border: 1px solid black;
 }
+
+.met {
+    background-color: rgb(98, 199, 98);
+}
+
+.not-met {
+    background-color: rgb(253, 110, 110)
+}

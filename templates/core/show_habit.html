@@ -3,7 +3,6 @@
 
 {% block content %}
 <div class="habit-list centerer">
-    {% for habit in habits %}
     <div class="habit-pane">
         <div class="habit-area">
             {% if habit.is_negative %}
@@ -28,6 +27,5 @@
             {% endfor %}
         </div>    
     </div>
-    {% endfor %}
 </div>
 {% endblock %}

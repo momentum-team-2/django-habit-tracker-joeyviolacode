@@ -10,7 +10,8 @@ def list_habits(request):
     return render(request, 'core/list_habits.html', { "habits" : habits })
 
 def show_habit(request, pk):
-    pass
+    habit = get_object_or_404(Habit, pk=pk)
+    return render(request, 'core/show_habit.html', {"habit": habit})
 
 def add_habit(request):
     pass
