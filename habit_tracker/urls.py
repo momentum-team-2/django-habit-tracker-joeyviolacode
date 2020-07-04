@@ -16,9 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.conf import settings
 from django.urls import include, path
+from core import views as core_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include("registration.backends.simple.urls")),
+    path('', core_views.list_habits, name="list_habits"),
+    path('habit/<int:pk>', core_views.show_habit, name="show_habit"),
+    path('habit/add', core_views.add_habit, name="add_habit"),
+    path('habit/<int:pk>/edit', core_views.edit_habit, name="edit_habit"),
+    path('record/add', core_views.add_record, name="add_record")
 ]
 
 if settings.DEBUG:

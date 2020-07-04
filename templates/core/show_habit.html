@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class="habit-list centerer">
+    <div class="habit-pane">
+        <div class="habit-area">
+            {% if habit.is_negative %}
+                {% if habit.number == 1 %}
+                <p>{{habit.verb}} less than {{habit.number}} {{habit.noun_singular}} per day.</p>
+                {% else %}
+                <p>{{habit.verb}} fewer than {{habit.number}} {{habit.noun}} per day.</p>
+                {% endif %}
+            {% else %}
+                {% if habit.number == 1 %}
+                <p>{{habit.verb}} at least {{habit.number}} {{habit.noun_singular}} per day.</p>
+                {% else %}
+                <p>{{habit.verb}} at least {{habit.number}} {{habit.noun}} per day.</p>
+                {% endif %}
+            {% endif %}
+            {% for record in habit.records.all %}
+                {% if record.is_met %}
+                <p class="met">You met this goal on {{record.date}} with {{record.number}}</p>
+                {% else %}
+                <p class="not-met">You failed this goal on {{record.date}} with {{record.number}}</p>
+                {% endif %}
+            {% endfor %}
+        </div>    
+    </div>
+</div>
+{% endblock %}

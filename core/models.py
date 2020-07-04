@@ -11,6 +11,11 @@ class Habit(models.Model):
     number = models.FloatField()
     is_negative = models.BooleanField(default=False)
     created_date = models.DateField()
+    user = models.ForeignKey(User, related_name="habits", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.verb} {self.noun} {self.number}"
+
 
 class Record(models.Model):
     number = models.FloatField()
@@ -23,3 +28,6 @@ class Record(models.Model):
         constraints = [
             models.UniqueConstraint(fields=['habit', 'user', 'date'], name='unique_record')
         ]
+ 
+    def __str__(self):
+        return f"{self.user} {self.habit} {self.date}"
