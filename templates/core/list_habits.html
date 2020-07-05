@@ -30,4 +30,43 @@
     </div>
     {% endfor %}
 </div>
+<div class="habit-form-div">
+    <form action="{% url 'add_habit' %}" class="" method="POST">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {{ form.verb.errors }}
+        <p>I would like to {{ form.verb }}</p>
+        <div class="inline-radio">
+            <group class="inline-radio">
+                {% for radio in form.more_less %}
+                {{ radio }}
+                {% endfor %}
+            </group>
+            <span>{{form.number}}</span>
+            {{form.number.errors}}
+        </div>
+        {{form.noun_singular.errors}}  {{form.noun.errors}}
+        <p>{{form.noun_singular}} / {{form.noun}} per day.</p>
+        <input type="submit" value="Create Habit">
+    </form>
+</div>
 {% endblock %}
+
+<!-- 
+The folowing is just a traditional HTML mockup of the form so I could figure out how I wanted to lay out
+the Django version, since I wasn't used to manually dealing with Django fields in the way I do below.
+    
+<div class="habit-form-div">
+    <form action="{% url 'add_habit' %}" class="" method="get">
+        <p>I would like to <input name="habit_verb" type="text" placeholder="verb"></p>
+        <div class="inline-radio">
+            <group class="inline-radio">
+                <div><input type="radio" name="more-less" value="more"><label>at least</label></div> / 
+                <div><input type="radio" name="more-less" value="less"><label>less than</label></div>
+            </group>  
+            <input name="habit-number" type="number" placeholder="number">
+        </div>
+        <p><input name="habit_noun_singular" type="text" placeholder="noun"> / <input name="habit_noun_plural" type="text" placeholder="noun_plural"></p>
+        <input type="submit" value="Create Habit">
+    </form>
+</div> -->

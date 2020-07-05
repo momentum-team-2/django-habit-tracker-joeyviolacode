@@ -58,6 +58,23 @@ header {
     border: 1px solid black;
 }
 
+
+/* Form CSS */
+.inline-radio {
+	display: flex;
+    border-radius: 3px;
+	overflow: hidden;
+}
+
+.habit-form-div {
+    border: 1px solid black;
+}
+
+
+
+
+
+
 .met {
     background-color: rgb(98, 199, 98);
 }
