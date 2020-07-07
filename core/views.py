@@ -46,3 +46,6 @@ def edit_habit(request, pk):
 
 def add_record(request):
     pass
+
+def secret_area(request):
+    return render(request, "core/secret_area.html")

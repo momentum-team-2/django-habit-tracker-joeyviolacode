@@ -8,22 +8,22 @@
         <div class="habit-area">
             {% if habit.is_negative %}
                 {% if habit.number == 1 %}
-                <p>{{habit.verb}} less than {{habit.number}} {{habit.noun_singular}} per day.</p>
+                <p>{{habit.verb|title}} less than {{habit.number|floatformat:"-2"}} {{habit.noun_singular}} per day.</p>
                 {% else %}
-                <p>{{habit.verb}} fewer than {{habit.number}} {{habit.noun}} per day.</p>
+                <p>{{habit.verb|title}} fewer than {{habit.number|floatformat:"-2"}} {{habit.noun}} per day.</p>
                 {% endif %}
             {% else %}
                 {% if habit.number == 1 %}
-                <p>{{habit.verb}} at least {{habit.number}} {{habit.noun_singular}} per day.</p>
+                <p>{{habit.verb|title}} at least {{habit.number|floatformat:"-2"}} {{habit.noun_singular}} per day.</p>
                 {% else %}
-                <p>{{habit.verb}} at least {{habit.number}} {{habit.noun}} per day.</p>
+                <p>{{habit.verb|title}} at least {{habit.number|floatformat:"-2"}} {{habit.noun}} per day.</p>
                 {% endif %}
-            {% endif %}
+            {% endif %}</h2>
             {% for record in habit.records.all %}
                 {% if record.is_met %}
-                <p class="met">You met this goal on {{record.date}} with {{record.number}}</p>
+                <p class="met">You met this goal on {{record.date}} with {{record.number|floatformat:"-2"}}</p>
                 {% else %}
-                <p class="not-met">You failed this goal on {{record.date}} with {{record.number}}</p>
+                <p class="not-met">You failed this goal on {{record.date}} with {{record.number|floatformat:"-2"}}</p>
                 {% endif %}
             {% endfor %}
         </div>    

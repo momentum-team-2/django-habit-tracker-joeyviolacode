@@ -69,7 +69,14 @@ header {
 .habit-form-div {
     border: 1px solid black;
 }
+/* End of form */
 
+/* Line graph CSS */
+.graph-container {
+    width: 50%;
+    margin: 0 auto;
+    border: 1px solid black;
+}
 
 
 
@@ -81,4 +88,62 @@ header {
 
 .not-met {
     background-color: rgb(253, 110, 110)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.secret {
+    display: flex;
+    justify-content:center;
+    margin-top: 75px;
+}
+
+.secret-img1 {
+    width: 450px;
+    height: 450px;
+}
+
+.secret-img2 {
+    width: 25%;
+    height: auto;
 }
