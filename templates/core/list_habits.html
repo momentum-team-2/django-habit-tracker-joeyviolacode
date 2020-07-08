@@ -34,20 +34,11 @@
     <form action="{% url 'add_habit' %}" class="" method="POST">
         {% csrf_token %}
         {{ form.non_field_errors }}
-        {{ form.verb.errors }}
-        <p>I would like to {{ form.verb }}</p>
-        <div class="inline-radio">
-            <group class="inline-radio">
-                {% for radio in form.more_less %}
-                {{ radio }}
-                {% endfor %}
-            </group>
-            <span>{{form.number}}</span>
-            {{form.number.errors}}
-        </div>
+        {{ form.verb.errors }} {{form.number.errors}}
+        <p>I would like to {{ form.verb }} {{form.more_less}} {{form.number}}</p>
         {{form.noun_singular.errors}}  {{form.noun.errors}}
         <p>{{form.noun_singular}} / {{form.noun}} per day.</p>
-        <input type="submit" value="Create Habit">
+        <input class="record-button" type="submit" value="Create Habit">
     </form>
 </div>
 {% endblock %}

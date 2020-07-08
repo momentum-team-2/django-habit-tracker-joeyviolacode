@@ -49,3 +49,12 @@ def add_record(request):
 
 def secret_area(request):
     return render(request, "core/secret_area.html")
+
+
+# list(habit.records.order_by("date").filter(date__gte=date.today()-datetime.timedelta(30)).values("date", "is_met", "number"))
+# start_date = earliest date in records
+# build list of dates:
+# dates = []
+# while start_date <= date.today():
+#     dates.append(start_date)
+#     start_date = start_date + datetime.timedelta(1)

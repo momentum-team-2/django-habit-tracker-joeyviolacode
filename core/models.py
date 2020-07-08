@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.conf import settings
 from users.models import User
+from datetime import date, timedelta
 # Create your models here.
 
 class Habit(models.Model):
@@ -15,6 +16,31 @@ class Habit(models.Model):
 
     def __str__(self):
         return f"{self.verb} {self.noun} {self.number}"
+
+    def get_record_details(self):
+        records = list(self.records.filter(date__gte=date.today()-timedelta(30)).order_by("date").values("date", "is_met", "number")) 
+        days = []
+        today = date.today()
+        if len(records) == 0:   #set start date for list of dates
+            start = today
+        else:
+            start = records[0]['date']
+        while start <= today:   #make list of dates from start date until today
+            days.append(start)
+            start += timedelta(1)
+        record_list = []
+        for day in days:
+            if len(records) > 0:
+                if day == records[0]['date']:
+                    record_list.append({"date": day, "is_met" : records[0]["is_met"], "number": records[0]["number"]})
+                    records = records[1:]
+                else:
+                    record_list.append( {"date": day, "is_met" : None, "number": None})
+        return record_list
+        
+        # Make a getter function for record that returns a { date:     is_met:    number:    } object so I'm not using
+        # a datetime as a key into a dictionary.  List comprehension should then work.
+
 
 
 class Record(models.Model):
@@ -31,3 +57,6 @@ class Record(models.Model):
  
     def __str__(self):
         return f"{self.user} {self.habit} {self.date}"
+
+    def get_dict(self):
+        return { "date": self.date, "is_met": self.is_met, "number": self.number }
