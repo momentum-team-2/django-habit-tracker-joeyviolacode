@@ -2,7 +2,7 @@
 
 
 {% block content %}
-<div class="habit-list centerer">
+<div class="habit-show centerer">
     <h2 class="habit-header"> 
         {% if habit.is_negative %}
             {% if habit.number == 1 %}
@@ -18,37 +18,76 @@
             {% endif %}
         {% endif %}
     </h2>
-    <div class="graph-container">
-        <canvas id="pie-chart"></canvas>
-    </div>
+<div class="graph-container">
+    <canvas id="pie-chart"></canvas>
+</div>
 </div>
 <div class="record-list">
-    <h3>Here are all of your records for this habit:</h3>
-    {% for record in habit.records.all %}
-        {% if record.is_met %}
-        <p class="met">You met this goal on {{record.date}} with {{record.number|floatformat:"-2"}}</p>
-        {% else %}
-        <p class="not-met">You failed this goal on {{record.date}} with {{record.number|floatformat:"-2"}}</p>
-        {% endif %}
-    {% endfor %}
+    <h3>Here are your most recent records for this habit:</h3>
+    <div class="record-panel">
+        {% for record in habit.get_record_details %}
+            {% if record.is_met %}
+            <a href="{% url 'edit_record' pk=record.pk %}" class="record-tiny border-small met">
+                <p class="emoji"> &#x1F600;</p>
+                <p>{{record.date|date:"m/d/y"}}</p>
+                <p>{{record.number|floatformat:"-2"}}</p>    
+            </a>            
+            {% elif record.number == 0 or record.number != null %}
+            <a href="{% url 'edit_record' pk=record.pk %}" class="record-tiny border-small not-met">
+                <p class="emoji"> &#x1F641;</p>
+                <p>{{record.date|date:"m/d/y"}}</p>
+                <p>{{record.number|floatformat:"-2"}}</p>  
+            </a>              
+            {% else %}
+            <a href="{% url 'add_record' pk=habit.pk date=record.date %}" class="record-tiny border-small not-set">
+                <p class="emoji"> &#x1F97A;</p>
+                <p>{{record.date|date:"m/d/y"}}</p>
+                <p>?</p> 
+            </a>               
+            {% endif %}               
+        {% endfor %}
+    </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 <script>
-    data = [15, 23, 19, 12]
-    baseline = [14, 14, 14, 14]
-    labels = ["Toronto", "Thunder Bay", "Saint Johns", "Vancouver"]
+    function replaceBlanks(x) {
+        if (x === "") {
+            return null
+        } else {
+            return x
+        }
+    }
+
+
+    let data = {{line_data|safe}}    
+    console.log(data)
+    let data2 = data.map(replaceBlanks)
+    console.log(data2)
     var config = {
       type: 'line',
       data: {
         datasets: [{
-            data: data,
+            data: data2,
             pointBackgroundColor: 'green',
+            pointRadius: 5,
             borderColor: "green",
             label: 'Achieved',
-            fill: false
+            fill: false,
+            spanGaps: true
         }, {
-            data: baseline,
+            data: {{target_data|safe}},
             pointBackgroundColor: 'red',
             fill: false,
             label: "Goal",
@@ -56,7 +95,7 @@
             pointRadius: 0,
             //borderDash: [4]
         }],
-            labels: labels
+            labels: {{label_strings|safe}}
       },
       options: {
         responsive: true,

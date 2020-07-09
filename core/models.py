@@ -18,7 +18,7 @@ class Habit(models.Model):
         return f"{self.verb} {self.noun} {self.number}"
 
     def get_record_details(self):
-        records = list(self.records.filter(date__gte=date.today()-timedelta(30)).order_by("date").values("date", "is_met", "number")) 
+        records = list(self.records.filter(date__gte=date.today()-timedelta(30)).order_by("date").values("date", "is_met", "number", "id")) 
         days = []
         today = date.today()
         if len(records) == 0:   #set start date for list of dates
@@ -32,17 +32,16 @@ class Habit(models.Model):
         for day in days:
             if len(records) > 0:
                 if day == records[0]['date']:
-                    record_list.append({"date": day, "is_met" : records[0]["is_met"], "number": records[0]["number"]})
+                    record_list.append({"date": day, "is_met" : records[0]["is_met"], "number": records[0]["number"], "pk":  records[0]["id"]})
                     records = records[1:]
                 else:
-                    record_list.append( {"date": day, "is_met" : None, "number": None})
+                    record_list.append( {"date": day, "is_met" : None, "number": None, "pk": None})
+            else:
+                record_list.append( {"date": day, "is_met" : None, "number": None, "pk": None})
+        print("***************************************************************")
+        print(record_list)
         return record_list
         
-        # Make a getter function for record that returns a { date:     is_met:    number:    } object so I'm not using
-        # a datetime as a key into a dictionary.  List comprehension should then work.
-
-
-
 class Record(models.Model):
     number = models.FloatField()
     is_met = models.BooleanField(default = False)

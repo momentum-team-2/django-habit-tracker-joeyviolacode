@@ -5,6 +5,7 @@ body {
     height: 100vh;
     width: 100vw;
     font-family: 'Open Sans', sans-serif;
+    background-color: #e9e6e0;
 }
 
 
@@ -56,8 +57,17 @@ header {
 
 .habit-pane {
     border: 1px solid black;
+    margin: 10px;
+    border-radius: 5px;
+    width: 45%;
+    padding: 10px;
+    background-color: white;
 }
 
+.habit-list {
+    display: flex;
+    flex-wrap: wrap;
+}
 
 /* Form CSS */
 .inline-radio {
@@ -76,18 +86,69 @@ header {
     width: 50%;
     margin: 0 auto;
     border: 1px solid black;
+    background-color: white;
+}
+
+.habit-area > p {
+    margin-top: 0px;
 }
 
 
+/* CSS for record panel */
 
+.record-panel {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
 
+.record-tiny {
+    margin: 5px;
+    padding: 5px;
+    text-align: center;
+}
 
 .met {
-    background-color: rgb(98, 199, 98);
+    background-color: rgb(92, 206, 92);
 }
 
 .not-met {
-    background-color: rgb(253, 110, 110)
+    background-color: rgb(235, 66, 66)
+}
+
+.not-set {
+    background-color: lightgrey;
+}
+
+.record-tiny > p:not(.emoji, .emoji-small) {
+    margin: 0;
+    font-size: 12px;
+}
+
+
+.emoji {
+    font-size: 40px;
+    margin: 5px;
+}
+
+.emoji-small {
+    font-size: 25px;
+    margin: 0px;;
+}
+
+.small-date {
+    font-size: 10px;
+    margin: 3px;
+}
+
+.border-small {
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+a {
+    text-decoration: none;
+    color: black;
 }
 
 
@@ -114,12 +175,7 @@ header {
 
 
 
-
-
-
-
-
-input:not(.record-button) {
+input:not(.habit-button) {
     border: 0;
     outline: 0;
     background: transparent;

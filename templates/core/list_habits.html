@@ -2,6 +2,7 @@
 
 
 {% block content %}
+<h2>Here are your habits:</h2>
 <div class="habit-list centerer">
     {% for habit in habits %}
     <div class="habit-pane">
@@ -19,28 +20,50 @@
                 <p>{{habit.verb|title}} at least {{habit.number|floatformat:"-2"}} {{habit.noun}} per day.</p>
                 {% endif %}
             {% endif %}</h2>
-            {% for record in habit.records.all %}
+            <div class="record-panel">
+            {% for record in habit.get_record_details %}
                 {% if record.is_met %}
-                <p class="met">You met this goal on {{record.date}} with {{record.number|floatformat:"-2"}}</p>
+                <a href="{% url 'edit_record' pk=record.pk %}"  class="record-tiny border-small met">
+                    <p class="emoji-small"> &#x1F600;</p>
+                    <p class="small-date">{{record.date|date:"m/d"}}</p>
+                </a>
+                {% elif record.number == 0 or record.number != null %}
+                <a href="{% url 'edit_record' pk=record.pk %}"  class="record-tiny border-small not-met">
+                    <p class="emoji-small"> &#x1F641;</p>
+                    <p class="small-date">{{record.date|date:"m/d"}}</p>
+                </a>
                 {% else %}
-                <p class="not-met">You failed this goal on {{record.date}} with {{record.number|floatformat:"-2"}}</p>
-                {% endif %}
+                <a href="{% url 'add_record' pk=habit.pk date=record.date %}"  class="record-tiny border-small not-set">
+                    <p class="emoji-small"> &#x1F97A;</p>
+                    <p class="small-date">{{record.date|date:"m/d"}}</p>
+                </a>             
+                {% endif %}  
             {% endfor %}
+            </div>
         </div>    
     </div>
     {% endfor %}
+    <div class="habit-form-div">
+        <form action="{% url 'add_habit' %}" class="" method="POST">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            {{ form.verb.errors }} {{form.number.errors}}
+            <p>I would like to {{ form.verb }} {{form.more_less}} {{form.number}}</p>
+            {{form.noun_singular.errors}}  {{form.noun.errors}}
+            <p>{{form.noun_singular}} / {{form.noun}} per day.  <input class="habit-button" type="submit" value="Create Habit"></p>
+        </form>
+    </div>
 </div>
-<div class="habit-form-div">
+<!-- <div class="habit-form-div">
     <form action="{% url 'add_habit' %}" class="" method="POST">
         {% csrf_token %}
         {{ form.non_field_errors }}
         {{ form.verb.errors }} {{form.number.errors}}
         <p>I would like to {{ form.verb }} {{form.more_less}} {{form.number}}</p>
         {{form.noun_singular.errors}}  {{form.noun.errors}}
-        <p>{{form.noun_singular}} / {{form.noun}} per day.</p>
-        <input class="record-button" type="submit" value="Create Habit">
+        <p>{{form.noun_singular}} / {{form.noun}} per day.  <input class="habit-button" type="submit" value="Create Habit"></p>
     </form>
-</div>
+</div> -->
 {% endblock %}
 
 <!-- 
