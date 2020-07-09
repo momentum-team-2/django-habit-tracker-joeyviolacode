@@ -69,6 +69,23 @@ header {
     flex-wrap: wrap;
 }
 
+.habit-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.delete-button {
+    background-color: #c9c5bf;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0 5px;
+    font-size: 10px;
+}
+
+.habit-header {
+    margin: 0;
+}
+
 /* Form CSS */
 .inline-radio {
 	display: flex;
@@ -78,6 +95,10 @@ header {
 
 .habit-form-div {
     border: 1px solid black;
+    border-radius: 5px;
+    background-color: white;
+    padding: 10px;
+    margin: 10px;
 }
 /* End of form */
 
@@ -93,6 +114,14 @@ header {
     margin-top: 0px;
 }
 
+.habit-show {
+    display: flex;
+    justify-content: space-between;
+}
+
+.show-habit-link > p {
+    margin-top: 0;
+}
 
 /* CSS for record panel */
 

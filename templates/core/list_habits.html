@@ -7,19 +7,25 @@
     {% for habit in habits %}
     <div class="habit-pane">
         <div class="habit-area">
-            {% if habit.is_negative %}
-                {% if habit.number == 1 %}
-                <p>{{habit.verb|title}} less than {{habit.number|floatformat:"-2"}} {{habit.noun_singular}} per day.</p>
+            <div class="habit-info">
+                <a href="{% url 'show_habit' pk=habit.pk %}" class="show-habit-link"> 
+                {% if habit.is_negative %}
+                    {% if habit.number == 1 %}
+                    <p>{{habit.verb|title}} less than {{habit.number|floatformat:"-2"}} {{habit.noun_singular}} per day.</p>
+                    {% else %}
+                    <p>{{habit.verb|title}} fewer than {{habit.number|floatformat:"-2"}} {{habit.noun}} per day.</p>
+                    {% endif %}
                 {% else %}
-                <p>{{habit.verb|title}} fewer than {{habit.number|floatformat:"-2"}} {{habit.noun}} per day.</p>
-                {% endif %}
-            {% else %}
-                {% if habit.number == 1 %}
-                <p>{{habit.verb|title}} at least {{habit.number|floatformat:"-2"}} {{habit.noun_singular}} per day.</p>
-                {% else %}
-                <p>{{habit.verb|title}} at least {{habit.number|floatformat:"-2"}} {{habit.noun}} per day.</p>
-                {% endif %}
-            {% endif %}</h2>
+                    {% if habit.number == 1 %}
+                    <p>{{habit.verb|title}} at least {{habit.number|floatformat:"-2"}} {{habit.noun_singular}} per day.</p>
+                    {% else %}
+                    <p>{{habit.verb|title}} at least {{habit.number|floatformat:"-2"}} {{habit.noun}} per day.</p>
+                    {% endif %}
+                {% endif %}</a>
+                <div class="delete-button-div">
+                    <a href="{% url 'delete_habit' pk=habit.pk %}" class="delete-button">X</a>
+                </div>
+            </div>
             <div class="record-panel">
             {% for record in habit.get_record_details %}
                 {% if record.is_met %}

@@ -6,7 +6,9 @@
 <div class="record-form">
     <form action="{% url 'edit_record' pk=record.pk %}" method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
+        <p>How many {{habit.noun}} did you {{habit.verb}} on {{date}}?</p>  
+        <p>Your current number for that date is {{record.number}}.</p>
+        <p>What number would you like to save for this record?    {{form.number}}</p>
         <div>
           <button type="submit">Create/Update Record!</button>
         </div>

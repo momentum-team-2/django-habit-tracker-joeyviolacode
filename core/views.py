@@ -52,8 +52,10 @@ def add_habit(request):
         logging.error("Form not valid.")
     return redirect(to="list_habits")
 
-def edit_habit(request, pk):
-    pass
+def delete_habit(request, pk):
+    habit = get_object_or_404(Habit, pk=pk)
+    habit.delete()
+    return redirect(to="list_habits")
 
 def add_record(request, pk, date):   # must add is_met check....
     habit = get_object_or_404(Habit, pk=pk)

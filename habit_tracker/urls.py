@@ -24,10 +24,10 @@ urlpatterns = [
     path('', core_views.list_habits, name="list_habits"),
     path('habit/<int:pk>', core_views.show_habit, name="show_habit"),
     path('habit/add', core_views.add_habit, name="add_habit"),
-    path('habit/<int:pk>/edit', core_views.edit_habit, name="edit_habit"),
     path('record/<int:pk>/<str:date>', core_views.add_record, name="add_record"),
     path('record/edit/<int:pk>', core_views.edit_record, name="edit_record"),
-    path('secret/area', core_views.secret_area, name="secret_area")
+    path('habit/<int:pk>/delete', core_views.delete_habit, name="delete_habit"),
+    path('secret-area', core_views.secret_area, name="secret_area"),
 ]
 
 if settings.DEBUG:
