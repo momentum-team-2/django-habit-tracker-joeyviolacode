@@ -21,12 +21,15 @@ from core import views as core_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include("registration.backends.simple.urls")),
-    path('', core_views.list_habits, name="list_habits"),
+    path('habits/list', core_views.list_habits, name="list_habits"),
     path('habit/<int:pk>', core_views.show_habit, name="show_habit"),
     path('habit/add', core_views.add_habit, name="add_habit"),
     path('record/<int:pk>/<str:date>', core_views.add_record, name="add_record"),
+    path('record/habit/<int:pk>/<str:date>', core_views.add_record_h, name="add_record_h"),
     path('record/edit/<int:pk>', core_views.edit_record, name="edit_record"),
+    path('record/habit/edit/<int:pk>', core_views.edit_record_h, name="edit_record_h"),
     path('habit/<int:pk>/delete', core_views.delete_habit, name="delete_habit"),
+    path('', core_views.welcome, name="welcome"),
     path('secret-area', core_views.secret_area, name="secret_area"),
 ]
 

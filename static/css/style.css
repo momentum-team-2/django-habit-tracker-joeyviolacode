@@ -51,8 +51,24 @@ header {
     justify-content: space-around;
 }
 
+.center {
+    display: flex;
+    justify-content: space-around;
+}
+
 .welcome-el {
     padding-right: 25px;
+}
+
+.welcome-container {
+    height: 50vh;
+    width: 100vh;
+    margin: auto auto;
+    border: 1px solid black;
+}
+
+.welcome-div {
+    border: 1px solid black;
 }
 
 .habit-pane {

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<h2>Edit a record!</h2>
+<div class="record-form">
+    <form action="{% url 'add_record_h' pk=pk date=date %}" method="POST">
+        {% csrf_token %}
+        <p>How many {{habit.noun}} did you {{habit.verb}} on {{date}}?  {{form.number}}</p>
+        <div>
+          <button type="submit">Create Record!</button>
+        </div>
+      </form>
+</div>
+{% endblock %}

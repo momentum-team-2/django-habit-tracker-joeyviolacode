@@ -38,8 +38,6 @@ class Habit(models.Model):
                     record_list.append( {"date": day, "is_met" : None, "number": None, "pk": None})
             else:
                 record_list.append( {"date": day, "is_met" : None, "number": None, "pk": None})
-        print("***************************************************************")
-        print(record_list)
         return record_list
         
 class Record(models.Model):

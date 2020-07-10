@@ -30,19 +30,19 @@
     <div class="record-panel">
         {% for record in habit.get_record_details %}
             {% if record.is_met %}
-            <a href="{% url 'edit_record' pk=record.pk %}" class="record-tiny border-small met">
+            <a href="{% url 'edit_record_h' pk=record.pk %}" class="record-tiny border-small met">
                 <p class="emoji"> &#x1F600;</p>
                 <p>{{record.date|date:"m/d/y"}}</p>
                 <p>{{record.number|floatformat:"-2"}}</p>    
             </a>            
             {% elif record.number == 0 or record.number != null %}
-            <a href="{% url 'edit_record' pk=record.pk %}" class="record-tiny border-small not-met">
+            <a href="{% url 'edit_record_h' pk=record.pk %}" class="record-tiny border-small not-met">
                 <p class="emoji"> &#x1F641;</p>
                 <p>{{record.date|date:"m/d/y"}}</p>
                 <p>{{record.number|floatformat:"-2"}}</p>  
             </a>              
             {% else %}
-            <a href="{% url 'add_record' pk=habit.pk date=record.date %}" class="record-tiny border-small not-set">
+            <a href="{% url 'add_record_h' pk=habit.pk date=record.date %}" class="record-tiny border-small not-set">
                 <p class="emoji"> &#x1F97A;</p>
                 <p>{{record.date|date:"m/d/y"}}</p>
                 <p>?</p> 
@@ -75,9 +75,7 @@
 
 
     let data = {{line_data|safe}}    
-    console.log(data)
     let data2 = data.map(replaceBlanks)
-    console.log(data2)
     var config = {
       type: 'line',
       data: {
@@ -91,11 +89,19 @@
             spanGaps: true
         }, {
             data: {{target_data|safe}},
-            pointBackgroundColor: 'red',
+            pointBackgroundColor: 'lightgrey',
+            pointRadius: 3,
             fill: false,
             label: "Goal",
             borderColor: "lightgrey",
-            pointRadius: 0,
+            //borderDash: [4]
+        }, {
+            data: [],
+            pointBackgroundColor: 'yellowgreen',
+            pointRadius: 3,
+            fill: false,
+            label: "Average",
+            borderColor: "yellowgreen",
             //borderDash: [4]
         }],
             labels: {{label_strings|safe}}
@@ -103,12 +109,12 @@
       options: {
         responsive: true,
         scales: {
-        yAxes: [{
-            ticks: {
-                beginAtZero: true
-            }
-        }]
-    }
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
       }
     };
 
