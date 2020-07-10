@@ -39,8 +39,18 @@ def show_habit(request, pk):
         else:
             average_data.append(((total / count)//.01) / 100)
             line_data.append("")
-        label_strings.append(str(record["date"]))
-    return render(request, 'core/show_habit.html', {"habit": habit, "line_data": line_data, "target_data":target_data, "label_strings":label_strings, "average_data":average_data })
+        label_strings.append(str(record["date"])[5:])
+        minimum = min( [ min(float(num) for num in line_data if num is not "") , target_data[0]] )
+        maximum = max( [ max(float(num) for num in line_data if num is not "") , target_data[0]] )
+        min_val = minimum - ((maximum - minimum) / 10)
+        max_val = maximum + ((maximum - minimum) / 10)
+        #min_val = max(min_val, 0)
+        print(min_val)
+    return render(request, 'core/show_habit.html', 
+                {"habit": habit, "line_data": line_data, 
+                "target_data":target_data, "label_strings":label_strings, 
+                "average_data":average_data, "min_val":min_val,
+                "max_val": max_val })
 
 # This may require that we change the way dates are implemented either here or in the model.  Auto_now_add
 # is not set in the model to make it easier for DB entry creation of multiple dates.  Needs to be decided and
