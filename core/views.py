@@ -40,12 +40,12 @@ def show_habit(request, pk):
             average_data.append(((total / count)//.01) / 100)
             line_data.append("")
         label_strings.append(str(record["date"])[5:])
-        minimum = min( [ min(float(num) for num in line_data if num is not "") , target_data[0]] )
-        maximum = max( [ max(float(num) for num in line_data if num is not "") , target_data[0]] )
-        min_val = minimum - ((maximum - minimum) / 10)
-        max_val = maximum + ((maximum - minimum) / 10)
-        #min_val = max(min_val, 0)
-        print(min_val)
+    minimum = min( [ min(float(num) for num in line_data if num is not "") , target_data[0]] )
+    maximum = max( [ max(float(num) for num in line_data if num is not "") , target_data[0]] )
+    min_val = minimum - ((maximum - minimum) / 10)
+    max_val = maximum + ((maximum - minimum) / 10)
+    #min_val = max(min_val, 0)
+    print(min_val)
     return render(request, 'core/show_habit.html', 
                 {"habit": habit, "line_data": line_data, 
                 "target_data":target_data, "label_strings":label_strings, 
@@ -127,7 +127,8 @@ def edit_record(request, pk):
             return redirect(to='list_habits')
     return render(request, "core/edit_record.html", {
         "form": form,
-        "record": record
+        "record": record,
+        "habit": habit
     })
 
 @login_required #Login_DEFINITELY_required.  :)

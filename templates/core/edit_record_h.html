@@ -6,7 +6,7 @@
 <div class="record-form">
     <form action="{% url 'edit_record_h' pk=record.pk %}" method="POST">
         {% csrf_token %}
-        <p>How many {{habit.noun}} did you {{habit.verb}} on {{date}}?</p>  
+        <p>How many {{habit.noun}} did you {{habit.verb}} on {{record.date}}?</p>  
         <p>Your current number for that date is {{record.number}}.</p>
         <p>What number would you like to save for this record?    {{form.number}}</p>
         <div>
