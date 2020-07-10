@@ -26,14 +26,21 @@ def show_habit(request, pk):
     line_data = []
     target_data = []
     label_strings = []
+    total = 0
+    count = 0
+    average_data = []
     for record in records_list:
         target_data.append(habit.number)
         if record["number"] is not None and record["number"] >= 0:
             line_data.append(record["number"])
+            total = total + record["number"]
+            count = count + 1
+            average_data.append(((total / count)//.01) / 100)
         else:
+            average_data.append(((total / count)//.01) / 100)
             line_data.append("")
         label_strings.append(str(record["date"]))
-    return render(request, 'core/show_habit.html', {"habit": habit, "line_data": line_data, "target_data":target_data, "label_strings":label_strings })
+    return render(request, 'core/show_habit.html', {"habit": habit, "line_data": line_data, "target_data":target_data, "label_strings":label_strings, "average_data":average_data })
 
 # This may require that we change the way dates are implemented either here or in the model.  Auto_now_add
 # is not set in the model to make it easier for DB entry creation of multiple dates.  Needs to be decided and

@@ -35,7 +35,7 @@
                 </a>
                 {% elif record.number == 0 or record.number != null %}
                 <a href="{% url 'edit_record' pk=record.pk %}"  class="record-tiny border-small not-met">
-                    <p class="emoji-small"> &#x1F641;</p>
+                    <p class="emoji-small"> &#x1F622;</p>
                     <p class="small-date">{{record.date|date:"m/d"}}</p>
                 </a>
                 {% else %}

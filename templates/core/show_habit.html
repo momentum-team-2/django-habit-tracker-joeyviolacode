@@ -23,7 +23,7 @@
     </div>
 </div>
 <div class="graph-container">
-    <canvas id="pie-chart"></canvas>
+    <canvas id="line-graph"></canvas>
 </div>
 <div class="record-list">
     <h3>Here are your most recent records for this habit:</h3>
@@ -37,7 +37,7 @@
             </a>            
             {% elif record.number == 0 or record.number != null %}
             <a href="{% url 'edit_record_h' pk=record.pk %}" class="record-tiny border-small not-met">
-                <p class="emoji"> &#x1F641;</p>
+                <p class="emoji"> &#x1F622;</p>
                 <p>{{record.date|date:"m/d/y"}}</p>
                 <p>{{record.number|floatformat:"-2"}}</p>  
             </a>              
@@ -82,7 +82,7 @@
         datasets: [{
             data: data2,
             pointBackgroundColor: 'green',
-            pointRadius: 5,
+            pointRadius: 3,
             borderColor: "green",
             label: 'Achieved',
             fill: false,
@@ -96,12 +96,12 @@
             borderColor: "lightgrey",
             //borderDash: [4]
         }, {
-            data: [],
-            pointBackgroundColor: 'yellowgreen',
+            data: {{average_data|safe}},
+            pointBackgroundColor: 'lightgreen',
             pointRadius: 3,
             fill: false,
             label: "Average",
-            borderColor: "yellowgreen",
+            borderColor: "lightgreen",
             //borderDash: [4]
         }],
             labels: {{label_strings|safe}}
@@ -111,7 +111,7 @@
         scales: {
             yAxes: [{
                 ticks: {
-                    beginAtZero: true
+                    suggestedMin: 0
                 }
             }]
         }
@@ -119,8 +119,8 @@
     };
 
     window.onload = function() {
-      var ctx = document.getElementById('pie-chart').getContext('2d');
-      window.myPie = new Chart(ctx, config);
+      var ctx = document.getElementById('line-graph').getContext('2d');
+      window.graph = new Chart(ctx, config);
     };
 
 </script>

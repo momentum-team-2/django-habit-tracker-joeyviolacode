@@ -51,6 +51,23 @@ header {
     justify-content: space-around;
 }
 
+.v-space {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.paws {
+    display: flex;
+    justify-content: space-between;
+}
+
+.paws > p {
+    font-size: 80px;
+    margin: 0;
+    padding: 10px 40px;
+}
+
 .center {
     display: flex;
     justify-content: space-around;
@@ -60,15 +77,22 @@ header {
     padding-right: 25px;
 }
 
+.welcome-header {
+    margin-top: 0;
+}
+
 .welcome-container {
     height: 50vh;
     width: 100vh;
     margin: auto auto;
     border: 1px solid black;
+    margin-top: 100px;
+    border-radius: 10px;
+    background-color: white;
 }
 
-.welcome-div {
-    border: 1px solid black;
+.mirror {
+    transform: scale(-1, 1);
 }
 
 .habit-pane {
